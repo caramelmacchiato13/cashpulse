@@ -1,109 +1,110 @@
-@extends('layoutbootstrap')
-
-@section('konten')
-
-    <!--  Main wrapper -->
-    <div class="body-wrapper">
-      <!--  Header Start -->
-      <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-icon-hover" href="javascript:void(0)">
-                <i class="ti ti-bell-ringing"></i>
-                <div class="notification bg-primary rounded-circle"></div>
-              </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">{{ Auth::user()->name }}</a>
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="{{asset('images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="{{url('logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+@extends('layoutbootstrap')  
+  
+@section('konten')  
+  
+    <!--  Main wrapper -->  
+    <div class="body-wrapper">  
+      <!--  Header Start -->  
+      <header class="app-header">  
+        <nav class="navbar navbar-expand-lg navbar-light">  
+          <ul class="navbar-nav">  
+            <li class="nav-item d-block d-xl-none">  
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">  
+                <i class="ti ti-menu-2"></i>  
+              </a>  
+            </li>  
+            <!-- <li class="nav-item">  
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)">  
+                <i class="ti ti-bell-ringing"></i>  
+                <div class="notification bg-primary rounded-circle"></div>  
+              </a>  
+            </li>   -->
+          </ul>  
+          <div class="ms-auto me-3">
+            <a href="{{url('logout')}}" class="btn btn-outline-primary">Logout</a>
           </div>
-        </nav>
-      </header>
-      <!--  Header End -->
-      <div class="container-fluid">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Data Projek</h5>
+        </nav>  
+      </header>  
+      <!--  Header End -->  
+      <div class="container-fluid">  
+        <div class="card">  
+          <div class="card-body">  
+            <h5 class="card-title fw-semibold mb-4">Data Proyek</h5>  
+  
+                <!-- Display Error jika ada error -->  
+                @if ($errors->any())  
+                    <div class="alert alert-danger">  
+                        <ul>  
+                            @foreach ($errors->all() as $error)  
+                                <li>{{ $error }}</li>  
+                            @endforeach  
+                        </ul>  
+                    </div>  
+                @endif  
+                <!-- Akhir Display Error -->  
+  
+                <!-- Awal Dari Input Form -->  
+                <form action="{{ route('projek.update', $projek->id) }}" method="post">  
+                    @csrf  
+                    @method('PUT')  
+                    <fieldset disabled>  
+                        <div class="mb-3"><label for="kodeprojeklabel">Kode Proyek</label>  
+                        <input class="form-control form-control-solid" id="kode_projek_tampil" name="kode_projek_tampil" type="text" placeholder="Contoh: PR-001" value="{{$projek->kode_projek}}" readonly></div>  
+                    </fieldset>  
+                    <input type="hidden" id="kode_projek" name="kode_projek" value="{{$projek->kode_projek}}">  
+  
+                    <div class="mb-3"><label for="namaprojeklabel">Nama Proyek</label>  
+                    <input class="form-control form-control-solid" id="nama_projek" name="nama_projek" type="text" placeholder="Contoh: Toko Mukena Sejuk Menenangkan" value="{{$projek->nama_projek}}">  
+                    </div>  
+                      
+                    <div class="mb-3"><label for="jenisprojeklabel">Tanggal Mulai</label>  
+                    <input class="form-control form-control-solid" id="tanggal_mulai" name="tanggal_mulai" type="date" value="{{$projek->tanggal_mulai}}">  
+                    </div>  
+  
+                    <div class="mb-3"><label for="jenisprojeklabel">Tanggal Selesai</label>  
+                    <input class="form-control form-control-solid" id="tanggal_selesai" name="tanggal_selesai" type="date" value="{{$projek->tanggal_selesai}}">  
+                    </div>  
 
-                <!-- Display Error jika ada error -->
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                    <!-- Di create.blade.php dan edit.blade.php, tambahkan sebelum besar_anggaran -->
+                    <div class="mb-3">
+                        <label for="pic_id">PIC Proyek</label>
+                        <select class="form-control form-control-solid" id="pic_id" name="pic_id">
+                            <option value="">Pilih PIC</option>
+                            @foreach($pics as $pic)
+                                <option value="{{ $pic->id }}" {{ old('pic_id', $projek->pic_id ?? '') == $pic->id ? 'selected' : '' }}>
+                                    {{ $pic->nama_pic }}
+                                </option>
                             @endforeach
-                        </ul>
-                    </div>
-                @endif
-                <!-- Akhir Display Error -->
-
-                <!-- Awal Dari Input Form -->
-                <form action="{{ route('projek.store') }}" method="post">
-                    @csrf
-                    <fieldset disabled>
-                        <div class="mb-3"><label for="kodeprojeklabel">Kode Projek</label>
-                        <input class="form-control form-control-solid" id="kode_projek_tampil" name="kode_projek_tampil" type="text" placeholder="Contoh: PR-001" value="{{$projek->$kode_projek}}" readonly></div>
-                    </fieldset>
-                    <input type="hidden" id="kode_projek" name="kode_projek" value="{{$kode_projek}}">
-
-                    <div class="mb-3"><label for="namaprojeklabel">Nama Projek</label>
-                    <input class="form-control form-control-solid" id="nama_projek" name="nama_projek" type="text" placeholder="Contoh: Toko Mukena Sejuk Menenangkan" value="{{old('nama_projek')}}">
-                    </div>
-                    
-                    <div class="mb-3"><label for="jenisprojeklabel">Jenis Projek</label>
-                    <input class="form-control form-control-solid" id="jenis_projek" name="jenis_projek" rows="3" placeholder="Cth: penelitian" value="{{old('jenis_projek')}}">
+                        </select>
                     </div>
 
-                    <div class="mb-3"><label for="namaprogramlabel">Nama Projek</label>
-                    <input class="form-control form-control-solid" id="nama_program" name="nama_program" type="text" placeholder="Contoh: Kedaireka" value="{{old('nama_program')}}">
+                    <div class="mb-3">
+                        <label for="mitra_id">Mitra Proyek</label>
+                        <select class="form-control form-control-solid" id="mitra_id" name="mitra_id">
+                            <option value="">Pilih Mitra</option>
+                            @foreach($mitras as $mitra)
+                                <option value="{{ $mitra->id }}" {{ old('mitra_id', $projek->mitra_id ?? '') == $mitra->id ? 'selected' : '' }}>
+                                    {{ $mitra->nama_mitra }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                    <br>
-                    <!-- untuk tombol simpan -->
-                    
-                    <input class="col-sm-1 btn btn-success btn-sm" type="submit" value="Simpan">
-
-                    <!-- untuk tombol batal simpan -->
-                    <a class="col-sm-1 btn btn-dark  btn-sm" href="{{ url('/projek') }}" role="button">Batal</a>
-                    
-                </form>
-                <!-- Akhir Dari Input Form -->
-            
-          </div>
-        </div>
-      </div>
-		
-		
-		
-        
-@endsection
+  
+                    <!-- <div class="mb-3"><label for="namaprogramlabel">Besar Anggaran</label>  
+                    <input class="form-control form-control-solid" id="besar_anggaran" name="besar_anggaran" type="text" placeholder="Contoh: Kedaireka" value="{{$projek->besar_anggaran}}">  
+                    </div>   -->
+                    <br>  
+                    <!-- untuk tombol simpan -->  
+                      
+                    <input class="col-sm-1 btn btn-success btn-sm" type="submit" value="Ubah">  
+  
+                    <!-- untuk tombol batal simpan -->  
+                    <a class="col-sm-1 btn btn-dark  btn-sm" href="{{ url('/projek') }}" role="button">Batal</a>  
+                      
+                </form>  
+                <!-- Akhir Dari Input Form -->  
+              
+          </div>  
+        </div>  
+      </div>  
+@endsection  

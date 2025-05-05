@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <!doctype html>
 <html lang="en">
 
@@ -14,5 +15,5 @@
       width:100;
     }
   </style>
-  
+
 </head>

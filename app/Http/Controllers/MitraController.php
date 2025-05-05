@@ -54,8 +54,8 @@ class MitraController extends Controller
         $validated = $request->validate([
             'id_mitra' => 'required',
             'nama_mitra' => 'required|unique:mitra|min:5|max:255',
-            'alamat_mitra' => 'required',
-            'no_telp' => 'required',
+            'alamat_mitra',
+            'no_telp',
             
         ]);
 
@@ -101,8 +101,8 @@ class MitraController extends Controller
         $validated = $request->validate([
             'id_mitra' => 'required',
             'nama_mitra' => 'required|max:255',
-            'alamat_mitra' => 'required',
-            'no_telp' => 'required',
+            'alamat_mitra',
+            'no_telp',
         ]);
     
         $mitra->update($validated);

@@ -13,40 +13,15 @@
                 <i class="ti ti-menu-2"></i>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link nav-icon-hover" href="javascript:void(0)">
                 <i class="ti ti-bell-ringing"></i>
                 <div class="notification bg-primary rounded-circle"></div>
               </a>
-            </li>
+            </li> -->
           </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/" target="_blank" class="btn btn-primary">Download Free</a>
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="{{asset('images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="{{url('logout')}}" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+          <div class="ms-auto me-3">
+            <a href="{{url('logout')}}" class="btn btn-outline-primary">Logout</a>
           </div>
         </nav>
       </header>
@@ -54,7 +29,7 @@
       <div class="container-fluid">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Data Perusahaan</h5>
+            <h5 class="card-title fw-semibold mb-4">Data Mitra</h5>
 
                 <!-- Display Error jika ada error -->
                 @if ($errors->any())
@@ -73,7 +48,7 @@
                     @csrf
                     @method('PUT')
                     <fieldset disabled>
-                        <div class="mb-3"><label for="idmitralabel">ID Mitra</label>
+                        <div class="mb-3"><label for="idmitralabel">Kode Mitra</label>
                         <input class="form-control form-control-solid" id="id_mitra_tampil" name="id_mitra_tampil" type="text" placeholder="Contoh: MTR-001" value="{{$mitra->id_mitra}}" readonly></div>
                     </fieldset>
                     <input type="hidden" id="id_mitra" name="id_mitra" value="{{$mitra->id_mitra}}">
@@ -83,11 +58,11 @@
                     </div>
                     
         
-                    <div class="mb-0"><label for="alamatmitralabel">Alamat Mitra</label>
+                    <div class="mb-3"><label for="alamatmitralabel">Alamat</label>
                         <textarea class="form-control form-control-solid" id="alamat_mitra" name="alamat_mitra" rows="3" placeholder="Cth: Jl Pelajar Pejuan 45">{{$mitra->alamat_mitra}}</textarea>
                     </div>
 
-                    <div class="mb-0"><label for="notelp">Nomor Telpon</label>
+                    <div class="mb-0"><label for="notelp">Nomor Telepon</label>
                     <input class="form-control form-control-solid" id="no_telp" name="no_telp" rows="3" placeholder="8624252772" value="{{$mitra->no_telp}}">
                     </div>
                     <br>

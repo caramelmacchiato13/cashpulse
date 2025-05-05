@@ -15,8 +15,8 @@ class CreateMitrasTable extends Migration
     {
         Schema::create('mitra', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_mitra',7)->unique();
-            $table->string('nama_mitra',50)->unique();
+            $table->string('id_mitra',10)->unique();
+            $table->string('nama_mitra',50);
             $table->string('alamat_mitra',100);
             $table->string('no_telp',13);
             $table->timestamps();

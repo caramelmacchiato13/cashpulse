@@ -8,6 +8,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\Akses; //load model dari kelas model akses
+
 class AuthenticatedSessionController extends Controller
 {
     /**
@@ -31,6 +33,16 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Tambahan untuk menambah variabel session kelompok
+        $id_customer = Auth::id(); //dapatkan id dari session yang sudah tercreate
+        $akses = Akses::getGrupUser($id_customer);
+        foreach($akses as $p):
+            $kelompok = $p->kelompok;
+        endforeach;
+        // membuat session dengan nama variabel kelompok
+        session(['kelompok' => $kelompok]);
+        // Akhir tambahan variabel session kelompok
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

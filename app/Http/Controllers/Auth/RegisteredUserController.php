@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -33,22 +34,45 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'kelompok' => ['required', 'string', 'in:keuangan,admin'], // Ubah nilai sesuai yang dibutuhkan
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        // Menggunakan DB transaction untuk memastikan kedua operasi berhasil atau gagal bersama
+        DB::beginTransaction();
+        
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+    
+            // Memasukkan data ke tabel users_kelompok
+            DB::table('users_kelompok')->insert([
+                'id_user' => $user->id,
+                'kelompok' => $request->kelompok,
+            ]);
+            
+            DB::commit();
+            
+            event(new Registered($user));
+    
+            Auth::login($user);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+            session(['kelompok' => $request->kelompok]);
+    
+            return redirect(RouteServiceProvider::HOME);
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+            return back()->withErrors([
+                'email' => 'Terjadi kesalahan saat mendaftarkan pengguna: ' . $e->getMessage(),
+            ]);
+        }
     }
 }

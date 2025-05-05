@@ -18,6 +18,7 @@ class CreateCOASTable extends Migration
             $table->string('kode_akun',5)->unique();
             $table->string('nama_akun',50);
             $table->string('header_akun',5);
+            $table->string('tipe',50);
             $table->timestamps();
         });
     }

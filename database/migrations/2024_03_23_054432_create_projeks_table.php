@@ -15,11 +15,14 @@ class CreateProjeksTable extends Migration
     {
         Schema::create('projek', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_projek',5)->unique();
+            $table->string('kode_projek',10)->unique();
             $table->string('nama_projek',50);
-            $table->string('jenis_projek',50);
-            $table->string('nama_program',50);
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->string('besar_anggaran',50);
             $table->timestamps();
+            $table->foreignId('pic_id')->nullable()->constrained('pic');
+            $table->foreignId('mitra_id')->nullable()->constrained('mitra');
         });
     }
 

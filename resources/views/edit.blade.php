@@ -86,6 +86,8 @@
                         <textarea class="form-control form-control-solid" id="jenis_projek" name="jenis_projek" rows="3" placeholder="Cth: penelitian">{{old('jenis_projek')}}</textarea>
                     </div>
                     <br>
+
+                    
                     <!-- untuk tombol simpan -->
                     
                     <input class="col-sm-1 btn btn-success btn-sm" type="submit" value="Simpan">
