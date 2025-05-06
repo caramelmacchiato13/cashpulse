@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <style>
+    <!-- <style>
         body {
             margin: 0;
             padding: 0;
@@ -23,7 +23,7 @@
             background-color: transparent !important;
             box-shadow: none;
         }
-    </style>
+    </style> -->
     
     <div class="auth-card-wrapper">
         <x-auth-card class="auth-card">
